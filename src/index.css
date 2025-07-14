@@ -1,42 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+/* Bluw Design System - Luxury Branding Agency
 All colors MUST be HSL.
 */
 
 @layer base {
   :root {
+    /* Brand Colors - Elegant Dark Blue & White */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 210 50% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 210 50% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 50% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Elegant Dark Blue */
+    --primary: 210 70% 20%;
+    --primary-foreground: 0 0% 98%;
+    --primary-hover: 210 70% 15%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Light Blue Accent */
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 210 70% 20%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted - Subtle Grays */
+    --muted: 210 20% 96%;
+    --muted-foreground: 210 20% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Vibrant Blue */
+    --accent: 210 100% 50%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 210 70% 20%;
 
-    --radius: 0.5rem;
+    --radius: 0rem;
+
+    /* Custom Brand Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-hover)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--accent)), hsl(var(--primary)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
+
+    /* Shadows */
+    --shadow-elegant: 0 10px 40px -10px hsl(var(--primary) / 0.15);
+    --shadow-card: 0 4px 20px -2px hsl(var(--primary) / 0.08);
+    --shadow-button: 0 4px 12px -2px hsl(var(--primary) / 0.2);
+
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +122,151 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-inter antialiased;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Brand Button Variants */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground px-8 py-4 font-medium transition-all duration-300 hover:bg-primary/90 hover:shadow-button hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground border border-border px-8 py-4 font-medium transition-all duration-300 hover:bg-primary hover:text-primary-foreground hover:shadow-button hover:scale-105;
+  }
+
+  .btn-accent {
+    @apply bg-accent text-accent-foreground px-8 py-4 font-medium transition-all duration-300 hover:bg-accent/90 hover:shadow-button hover:scale-105;
+  }
+
+  /* Card Components */
+  .card-elegant {
+    @apply bg-card border border-border p-8 transition-all duration-300 hover:shadow-card hover:scale-105;
+  }
+
+  .card-pricing {
+    @apply bg-card border border-border p-8 relative transition-all duration-300 hover:shadow-elegant hover:scale-105 hover:border-primary/30;
+  }
+
+  .card-pricing-popular {
+    @apply bg-gradient-to-br from-primary/5 to-accent/5 border-2 border-primary shadow-elegant scale-105;
+  }
+
+  /* Typography Styles */
+  .heading-hero {
+    @apply text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight;
+  }
+
+  .heading-section {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight;
+  }
+
+  .heading-card {
+    @apply text-xl md:text-2xl font-semibold;
+  }
+
+  .text-hero {
+    @apply text-lg md:text-xl text-muted-foreground leading-relaxed;
+  }
+
+  .text-section {
+    @apply text-base md:text-lg text-muted-foreground leading-relaxed;
+  }
+
+  /* Layout Utilities */
+  .container-bluw {
+    @apply max-w-7xl mx-auto px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  /* Animation Utilities */
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+
+  /* Link Styles */
+  .link-elegant {
+    @apply relative text-foreground font-medium transition-colors duration-300 hover:text-primary;
+  }
+
+  .link-elegant::after {
+    @apply content-[''] absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+
+  .link-elegant:hover::after {
+    @apply w-full;
+  }
+}
+
+@layer utilities {
+  .font-inter {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .bg-gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .bg-gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .bg-gradient-subtle {
+    background: var(--gradient-subtle);
+  }
+
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-button {
+    box-shadow: var(--shadow-button);
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-fast {
+    transition: var(--transition-fast);
+  }
+}
+
+/* Keyframe Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
