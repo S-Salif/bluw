@@ -92,7 +92,32 @@ const translations = {
     // Footer
     'footer.email': 'Contact : streulens.salif@gmail.com',
     'footer.legal': 'Mentions légales',
+    'footer.terms': 'Conditions générales',
     'footer.tagline': 'Bluw - Logos haut de gamme professionnels',
+    
+    // Legal Notice page
+    'legal.title': 'Mentions légales',
+    'legal.placeholder': 'Contenu des mentions légales à compléter.',
+    'legal.section1.title': 'Informations légales',
+    'legal.section1.content': 'Placeholder pour les informations légales de l\'entreprise.',
+    'legal.section2.title': 'Responsabilité',
+    'legal.section2.content': 'Placeholder pour les clauses de responsabilité.',
+    'legal.section3.title': 'Propriété intellectuelle',
+    'legal.section3.content': 'Placeholder pour les informations de propriété intellectuelle.',
+    
+    // Terms page
+    'terms.title': 'Conditions générales d\'utilisation',
+    'terms.intro': 'Les présentes conditions générales régissent l\'utilisation de nos services.',
+    'terms.purpose.title': 'Objet du contrat',
+    'terms.purpose.content': 'Placeholder pour l\'objet du contrat et la description des services.',
+    'terms.ordering.title': 'Commande & Paiement',
+    'terms.ordering.content': 'Placeholder pour les conditions de commande et de paiement.',
+    'terms.intellectual.title': 'Propriété intellectuelle',
+    'terms.intellectual.content': 'Placeholder pour les clauses de propriété intellectuelle.',
+    'terms.liability.title': 'Responsabilité',
+    'terms.liability.content': 'Placeholder pour les limitations de responsabilité.',
+    'terms.governing.title': 'Loi applicable',
+    'terms.governing.content': 'Placeholder pour la loi applicable et la juridiction compétente.',
     
     // Common
     'common.loading': 'Chargement...',
@@ -179,7 +204,32 @@ const translations = {
     // Footer
     'footer.email': 'Contact: streulens.salif@gmail.com',
     'footer.legal': 'Legal Notice',
+    'footer.terms': 'Terms & Conditions',
     'footer.tagline': 'Bluw - Professional Premium Logos',
+    
+    // Legal Notice page
+    'legal.title': 'Legal Notice',
+    'legal.placeholder': 'Legal notice content to be completed.',
+    'legal.section1.title': 'Legal Information',
+    'legal.section1.content': 'Placeholder for company legal information.',
+    'legal.section2.title': 'Liability',
+    'legal.section2.content': 'Placeholder for liability clauses.',
+    'legal.section3.title': 'Intellectual Property',
+    'legal.section3.content': 'Placeholder for intellectual property information.',
+    
+    // Terms page
+    'terms.title': 'Terms & Conditions',
+    'terms.intro': 'These terms and conditions govern the use of our services.',
+    'terms.purpose.title': 'Purpose',
+    'terms.purpose.content': 'Placeholder for contract purpose and service description.',
+    'terms.ordering.title': 'Ordering & Payment',
+    'terms.ordering.content': 'Placeholder for ordering and payment conditions.',
+    'terms.intellectual.title': 'Intellectual Property',
+    'terms.intellectual.content': 'Placeholder for intellectual property clauses.',
+    'terms.liability.title': 'Liability',
+    'terms.liability.content': 'Placeholder for liability limitations.',
+    'terms.governing.title': 'Governing Law',
+    'terms.governing.content': 'Placeholder for applicable law and competent jurisdiction.',
     
     // Common
     'common.loading': 'Loading...',

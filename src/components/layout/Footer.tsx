@@ -4,7 +4,7 @@ import { Mail, ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const navigationItems = [
     { path: '/', label: t('nav.home') },
@@ -71,12 +71,20 @@ const Footer = () => {
           <p className="text-muted-foreground text-sm">
             © 2024 Bluw. Tous droits réservés.
           </p>
-          <Link
-            to="/legal"
-            className="text-muted-foreground hover:text-primary transition-colors duration-300 text-sm"
-          >
-            {t('footer.legal')}
-          </Link>
+          <div className="flex space-x-6">
+            <Link
+              to={`/${language === 'fr' ? 'mentions-legales' : 'legal-notice'}`}
+              className="text-muted-foreground hover:text-primary transition-colors duration-300 text-sm"
+            >
+              {t('footer.legal')}
+            </Link>
+            <Link
+              to={`/${language === 'fr' ? 'conditions' : 'terms'}`}
+              className="text-muted-foreground hover:text-primary transition-colors duration-300 text-sm"
+            >
+              {t('footer.terms')}
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
