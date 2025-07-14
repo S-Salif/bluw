@@ -12,34 +12,30 @@ const Terms = () => {
         </h1>
         
         <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed">
-          <p className="mb-8">
-            {t('terms.intro')}
-          </p>
-          
           <div className="space-y-8">
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">{t('terms.purpose.title')}</h2>
-              <p>{t('terms.purpose.content')}</p>
+              <div className="whitespace-pre-line">{t('terms.purpose.content')}</div>
             </section>
             
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">{t('terms.ordering.title')}</h2>
-              <p>{t('terms.ordering.content')}</p>
+              <div className="whitespace-pre-line">{t('terms.ordering.content')}</div>
             </section>
             
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">{t('terms.intellectual.title')}</h2>
-              <p>{t('terms.intellectual.content')}</p>
+              <div className="whitespace-pre-line">{t('terms.intellectual.content')}</div>
             </section>
             
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">{t('terms.liability.title')}</h2>
-              <p>{t('terms.liability.content')}</p>
+              <div className="whitespace-pre-line">{t('terms.liability.content')}</div>
             </section>
             
             <section>
               <h2 className="text-2xl font-semibold text-foreground mb-4">{t('terms.governing.title')}</h2>
-              <p>{t('terms.governing.content')}</p>
+              <div className="whitespace-pre-line">{t('terms.governing.content')}</div>
             </section>
           </div>
         </div>

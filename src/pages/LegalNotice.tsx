@@ -12,24 +12,20 @@ const LegalNotice = () => {
         </h1>
         
         <div className="prose prose-lg max-w-none text-muted-foreground leading-relaxed">
-          <p className="mb-6">
-            {t('legal.placeholder')}
-          </p>
-          
-          <div className="space-y-6">
+          <div className="space-y-8">
             <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">{t('legal.section1.title')}</h2>
-              <p>{t('legal.section1.content')}</p>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">{t('legal.legalInfo.title')}</h2>
+              <div className="whitespace-pre-line">{t('legal.legalInfo.content')}</div>
             </section>
             
             <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">{t('legal.section2.title')}</h2>
-              <p>{t('legal.section2.content')}</p>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">{t('legal.liability.title')}</h2>
+              <div className="whitespace-pre-line">{t('legal.liability.content')}</div>
             </section>
             
             <section>
-              <h2 className="text-xl font-semibold text-foreground mb-3">{t('legal.section3.title')}</h2>
-              <p>{t('legal.section3.content')}</p>
+              <h2 className="text-2xl font-semibold text-foreground mb-4">{t('legal.intellectual.title')}</h2>
+              <div className="whitespace-pre-line">{t('legal.intellectual.content')}</div>
             </section>
           </div>
         </div>
