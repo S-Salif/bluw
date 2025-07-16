@@ -1,4 +1,5 @@
 
+
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14.21.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
@@ -18,13 +19,13 @@ interface PaymentRequest {
 const getPackageAmount = (packageType: string): number => {
   switch (packageType) {
     case 'basic':
-      return 29900; // 299€ in cents
+      return 28000; // 280€ in cents
     case 'advanced':
-      return 49900; // 499€ in cents
+      return 69000; // 690€ in cents
     case 'ultimate':
-      return 79900; // 799€ in cents
+      return 119000; // 1190€ in cents
     default:
-      return 29900;
+      return 28000;
   }
 };
 
@@ -134,3 +135,4 @@ serve(async (req) => {
     });
   }
 });
+
