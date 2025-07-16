@@ -1,20 +1,81 @@
+
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Send, CreditCard, CheckCircle } from 'lucide-react';
+import { Send, CreditCard, CheckCircle, AlertCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const Contact = () => {
   const { t } = useLanguage();
   const { toast } = useToast();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     package: searchParams.get('plan') || '',
     message: '',
   });
+
+  // Check for payment success/cancellation on component mount
+  useEffect(() => {
+    const success = searchParams.get('success');
+    const cancelled = searchParams.get('cancelled');
+    const sessionId = searchParams.get('session_id');
+
+    if (success === 'true' && sessionId) {
+      // Handle successful payment
+      handlePaymentSuccess(sessionId);
+    } else if (cancelled === 'true') {
+      toast({
+        title: "Paiement annulé",
+        description: "Votre paiement a été annulé. Vous pouvez réessayer quand vous le souhaitez.",
+        variant: "destructive",
+      });
+      // Clear URL parameters
+      setSearchParams({});
+    }
+  }, [searchParams]);
+
+  const handlePaymentSuccess = async (sessionId: string) => {
+    try {
+      // Get order ID from session storage or URL
+      const orderId = localStorage.getItem('pending_order_id');
+      if (!orderId) {
+        throw new Error('Order ID not found');
+      }
+
+      // Send confirmation email
+      const { data, error } = await supabase.functions.invoke('send-confirmation', {
+        body: {
+          order_id: orderId,
+          session_id: sessionId,
+        },
+      });
+
+      if (error) throw error;
+
+      setIsSubmitted(true);
+      localStorage.removeItem('pending_order_id');
+      
+      toast({
+        title: "Paiement confirmé !",
+        description: "Votre commande a été confirmée et un email de confirmation vous a été envoyé.",
+      });
+
+      // Clear URL parameters
+      setSearchParams({});
+    } catch (error) {
+      console.error('Error handling payment success:', error);
+      toast({
+        title: "Erreur",
+        description: "Une erreur est survenue lors de la confirmation. Nous vous contacterons bientôt.",
+        variant: "destructive",
+      });
+    }
+  };
 
   const packages = [
     { value: 'basic', label: t('pricing.basic.name'), price: t('pricing.basic.price') },
@@ -29,26 +90,45 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     
-    // Simulate form submission
     try {
-      // Here you would normally send the data to your backend
-      console.log('Form submitted:', formData);
-      
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setIsSubmitted(true);
-      toast({
-        title: "Commande envoyée !",
-        description: t('contact.success'),
+      // Create payment session and order
+      const { data, error } = await supabase.functions.invoke('create-payment', {
+        body: formData,
       });
+
+      if (error) throw error;
+
+      // Store order ID for later use
+      localStorage.setItem('pending_order_id', data.order_id);
+
+      // Send initial confirmation email (order received)
+      await supabase.functions.invoke('send-confirmation', {
+        body: {
+          order_id: data.order_id,
+        },
+      });
+
+      // Redirect to Stripe checkout in new tab
+      if (data.url) {
+        window.open(data.url, '_blank');
+      }
+
+      toast({
+        title: "Commande créée !",
+        description: "Votre commande a été créée. Veuillez finaliser le paiement dans l'onglet qui vient de s'ouvrir.",
+      });
+
     } catch (error) {
+      console.error('Error creating payment:', error);
       toast({
         title: "Erreur",
-        description: t('common.error'),
+        description: "Une erreur est survenue lors de la création de votre commande. Veuillez réessayer.",
         variant: "destructive",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -60,13 +140,19 @@ const Contact = () => {
         <div className="text-center max-w-md mx-auto">
           <CheckCircle className="w-16 h-16 text-accent mx-auto mb-6" />
           <h1 className="heading-section text-primary mb-4">
-            Merci !
+            Merci pour votre commande !
           </h1>
-          <p className="text-section mb-8">
-            {t('contact.success')}
+          <p className="text-section mb-4">
+            Votre paiement a été confirmé avec succès. Nous avons envoyé un email de confirmation avec tous les détails.
+          </p>
+          <p className="text-sm text-muted-foreground mb-8">
+            Nous vous contacterons dans les 24h pour discuter de votre projet en détail.
           </p>
           <button
-            onClick={() => setIsSubmitted(false)}
+            onClick={() => {
+              setIsSubmitted(false);
+              setFormData({ name: '', email: '', package: '', message: '' });
+            }}
             className="btn-primary"
           >
             Nouvelle commande
@@ -108,7 +194,8 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 border border-border focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 border border-border focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50"
                 />
               </div>
 
@@ -123,7 +210,8 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 border border-border focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 border border-border focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50"
                 />
               </div>
 
@@ -137,7 +225,8 @@ const Contact = () => {
                   value={formData.package}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-4 py-3 border border-border focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                  disabled={isLoading}
+                  className="w-full px-4 py-3 border border-border focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50"
                 >
                   <option value="">Sélectionnez un forfait</option>
                   {packages.map((pkg) => (
@@ -158,8 +247,9 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleInputChange}
                   required
+                  disabled={isLoading}
                   rows={6}
-                  className="w-full px-4 py-3 border border-border focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 border border-border focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50"
                   placeholder="Décrivez votre projet, votre secteur d'activité, vos préférences..."
                 />
               </div>
@@ -177,27 +267,38 @@ const Contact = () => {
                 </div>
               )}
 
-              {/* Payment Simulation */}
+              {/* Payment Information */}
               <div className="bg-accent/5 p-6 border border-accent/20">
                 <div className="flex items-center space-x-2 mb-4">
                   <CreditCard className="w-5 h-5 text-accent" />
                   <h3 className="font-semibold text-foreground">Paiement sécurisé</h3>
                 </div>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Le paiement sera traité via Stripe après validation de votre commande.
+                  Après validation de votre commande, vous serez redirigé vers Stripe pour effectuer le paiement de manière sécurisée.
                 </p>
-                <div className="text-xs text-muted-foreground">
-                  * Paiement sécurisé - Nous vous enverrons un lien de paiement par email
+                <div className="flex items-center space-x-2 text-xs text-muted-foreground">
+                  <AlertCircle className="w-4 h-4" />
+                  <span>Vous recevrez un email de confirmation après votre commande</span>
                 </div>
               </div>
 
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full btn-primary flex items-center justify-center space-x-2"
+                disabled={isLoading}
+                className="w-full btn-primary flex items-center justify-center space-x-2 disabled:opacity-50"
               >
-                <Send className="w-5 h-5" />
-                <span>{t('contact.form.submit')}</span>
+                {isLoading ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    <span>Création en cours...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    <span>{t('contact.form.submit')}</span>
+                  </>
+                )}
               </button>
             </form>
           </div>
