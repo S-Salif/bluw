@@ -62,9 +62,7 @@ const Footer = () => {
 
         {/* Bottom Section */}
         <div className="mt-8 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p className="text-muted-foreground text-sm">
-            © 2024 Bluw. Tous droits réservés.
-          </p>
+          <p className="text-muted-foreground text-sm">© 2025 Bluw. Tous droits réservés.</p>
           <div className="flex space-x-6">
             <Link to={`/${language === 'fr' ? 'mentions-legales' : 'legal-notice'}`} className="text-muted-foreground hover:text-primary transition-colors duration-300 text-sm">
               {t('footer.legal')}
