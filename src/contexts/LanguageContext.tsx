@@ -59,7 +59,7 @@ const translations = {
     'pricing.advanced.badge': 'Populaire',
     
     'pricing.ultimate.name': 'Forfait Ultime',
-    'pricing.ultimate.price': '1190 €',
+    'pricing.ultimate.price': '1290 €',
     'pricing.ultimate.feature1': 'Branding complet',
     'pricing.ultimate.feature2': '3 propositions de logo',
     'pricing.ultimate.feature3': 'Toutes déclinaisons',
@@ -169,7 +169,7 @@ const translations = {
     'pricing.advanced.badge': 'Popular',
     
     'pricing.ultimate.name': 'Ultimate Package',
-    'pricing.ultimate.price': '€1190',
+    'pricing.ultimate.price': '€1290',
     'pricing.ultimate.feature1': 'Complete branding',
     'pricing.ultimate.feature2': '3 logo proposals',
     'pricing.ultimate.feature3': 'All variations',

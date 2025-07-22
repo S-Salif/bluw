@@ -23,7 +23,7 @@ const getPackageAmount = (packageType: string): number => {
     case 'advanced':
       return 69000; // 690€ in cents
     case 'ultimate':
-      return 119000; // 1190€ in cents
+      return 129000; // 1290€ in cents
     default:
       return 28000;
   }
