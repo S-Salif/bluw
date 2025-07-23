@@ -14,6 +14,90 @@ export type Database = {
   }
   public: {
     Tables: {
+      logo_orders: {
+        Row: {
+          amount: number
+          avoided_colors: string | null
+          company_name: string
+          created_at: string
+          currency: string | null
+          email: string
+          examples_url: string | null
+          formats: string[]
+          icons: string | null
+          id: string
+          logo_name: string
+          message: string
+          package: string
+          phone: string
+          preferred_colors: string | null
+          sector: string
+          slogan: string | null
+          status: string
+          stripe_payment_intent_id: string | null
+          stripe_session_id: string | null
+          style: string
+          typography: string | null
+          updated_at: string
+          usage: string[] | null
+          website: string | null
+        }
+        Insert: {
+          amount: number
+          avoided_colors?: string | null
+          company_name: string
+          created_at?: string
+          currency?: string | null
+          email: string
+          examples_url?: string | null
+          formats: string[]
+          icons?: string | null
+          id?: string
+          logo_name: string
+          message: string
+          package: string
+          phone: string
+          preferred_colors?: string | null
+          sector: string
+          slogan?: string | null
+          status?: string
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          style: string
+          typography?: string | null
+          updated_at?: string
+          usage?: string[] | null
+          website?: string | null
+        }
+        Update: {
+          amount?: number
+          avoided_colors?: string | null
+          company_name?: string
+          created_at?: string
+          currency?: string | null
+          email?: string
+          examples_url?: string | null
+          formats?: string[]
+          icons?: string | null
+          id?: string
+          logo_name?: string
+          message?: string
+          package?: string
+          phone?: string
+          preferred_colors?: string | null
+          sector?: string
+          slogan?: string | null
+          status?: string
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          style?: string
+          typography?: string | null
+          updated_at?: string
+          usage?: string[] | null
+          website?: string | null
+        }
+        Relationships: []
+      }
       orders: {
         Row: {
           amount: number | null

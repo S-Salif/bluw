@@ -1,10 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Send, CreditCard, CheckCircle, AlertCircle } from 'lucide-react';
+import { Send, CreditCard, CheckCircle, AlertCircle, Upload, Building, Palette, Package } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -13,11 +17,33 @@ const Contact = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
+    // Company information
+    companyName: '',
+    sector: '',
     email: '',
-    package: searchParams.get('plan') || '',
+    phone: '',
+    website: '',
+    
+    // Logo information
+    logoName: '',
+    style: '',
     message: '',
+    formats: [] as string[],
+    
+    // Visual preferences (optional)
+    preferredColors: '',
+    avoidedColors: '',
+    typography: '',
+    icons: '',
+    slogan: '',
+    examplesUrl: '',
+    usage: [] as string[],
+    
+    // Package
+    package: searchParams.get('plan') || '',
   });
+  
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   // Check for payment success/cancellation on component mount
   useEffect(() => {
@@ -88,13 +114,60 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, checked } = e.target;
+    
+    if (name === 'formats' || name === 'usage') {
+      setFormData(prev => ({
+        ...prev,
+        [name]: checked 
+          ? [...prev[name], value]
+          : prev[name].filter(item => item !== value)
+      }));
+    }
+  };
+
+  const handleSelectChange = (value: string, field: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const validateForm = () => {
+    const required = ['companyName', 'sector', 'email', 'phone', 'logoName', 'style', 'message', 'package'];
+    const missing = required.filter(field => !formData[field as keyof typeof formData]);
+    
+    if (missing.length > 0) {
+      toast({
+        title: "Champs manquants",
+        description: "Veuillez remplir tous les champs obligatoires.",
+        variant: "destructive",
+      });
+      return false;
+    }
+    
+    if (formData.formats.length === 0) {
+      toast({
+        title: "Formats manquants",
+        description: "Veuillez sélectionner au moins un format de fichier.",
+        variant: "destructive",
+      });
+      return false;
+    }
+    
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+    
     setIsLoading(true);
     
     try {
-      // Create payment session and order
-      const { data, error } = await supabase.functions.invoke('create-payment', {
+      // Create logo order
+      const { data, error } = await supabase.functions.invoke('create-logo-order', {
         body: formData,
       });
 
@@ -103,25 +176,18 @@ const Contact = () => {
       // Store order ID for later use
       localStorage.setItem('pending_order_id', data.order_id);
 
-      // Send initial confirmation email (order received)
-      await supabase.functions.invoke('send-confirmation', {
-        body: {
-          order_id: data.order_id,
-        },
-      });
-
-      // Redirect to Stripe checkout in new tab
+      // Redirect to Stripe checkout
       if (data.url) {
-        window.open(data.url, '_blank');
+        window.location.href = data.url;
       }
 
       toast({
         title: "Commande créée !",
-        description: "Votre commande a été créée. Veuillez finaliser le paiement dans l'onglet qui vient de s'ouvrir.",
+        description: "Redirection vers le paiement en cours...",
       });
 
     } catch (error) {
-      console.error('Error creating payment:', error);
+      console.error('Error creating logo order:', error);
       toast({
         title: "Erreur",
         description: "Une erreur est survenue lors de la création de votre commande. Veuillez réessayer.",
@@ -151,7 +217,12 @@ const Contact = () => {
           <button
             onClick={() => {
               setIsSubmitted(false);
-              setFormData({ name: '', email: '', package: '', message: '' });
+              setFormData({
+                companyName: '', sector: '', email: '', phone: '', website: '',
+                logoName: '', style: '', message: '', formats: [],
+                preferredColors: '', avoidedColors: '', typography: '', icons: '',
+                slogan: '', examplesUrl: '', usage: [], package: ''
+              });
             }}
             className="btn-primary"
           >
@@ -182,81 +253,290 @@ const Contact = () => {
       <section className="section-padding">
         <div className="container-bluw">
           <div className="max-w-2xl mx-auto">
-            <form onSubmit={handleSubmit} className="card-elegant space-y-6">
-              {/* Name Field */}
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  {t('contact.form.name')} *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  disabled={isLoading}
-                  className="w-full px-4 py-3 border border-border focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50"
-                />
+            <form onSubmit={handleSubmit} className="card-elegant space-y-8">
+              {/* 1. Informations sur l'entreprise */}
+              <div className="space-y-6">
+                <div className="flex items-center space-x-2 pb-4 border-b border-border">
+                  <Building className="w-6 h-6 text-primary" />
+                  <h2 className="text-xl font-semibold text-primary">Informations sur l'entreprise</h2>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <Label htmlFor="companyName">Nom de l'entreprise *</Label>
+                    <Input
+                      id="companyName"
+                      name="companyName"
+                      value={formData.companyName}
+                      onChange={handleInputChange}
+                      placeholder="Ex. Agence Pixelia"
+                      required
+                      disabled={isLoading}
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="sector">Secteur d'activité *</Label>
+                    <Input
+                      id="sector"
+                      name="sector"
+                      value={formData.sector}
+                      onChange={handleInputChange}
+                      placeholder="Ex. Marketing, IT, Santé..."
+                      required
+                      disabled={isLoading}
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="email">Email *</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="contact@exemple.com"
+                      required
+                      disabled={isLoading}
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="phone">Téléphone *</Label>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      placeholder="+33 6 12 34 56 78"
+                      required
+                      disabled={isLoading}
+                    />
+                  </div>
+                  
+                  <div className="md:col-span-2">
+                    <Label htmlFor="website">Site web (optionnel)</Label>
+                    <Input
+                      id="website"
+                      name="website"
+                      type="url"
+                      value={formData.website}
+                      onChange={handleInputChange}
+                      placeholder="https://monsite.com"
+                      disabled={isLoading}
+                    />
+                  </div>
+                </div>
               </div>
 
-              {/* Email Field */}
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  {t('contact.form.email')} *
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  disabled={isLoading}
-                  className="w-full px-4 py-3 border border-border focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50"
-                />
+              {/* 2. Informations sur le logo */}
+              <div className="space-y-6">
+                <div className="flex items-center space-x-2 pb-4 border-b border-border">
+                  <Palette className="w-6 h-6 text-primary" />
+                  <h2 className="text-xl font-semibold text-primary">Informations sur le logo</h2>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <Label htmlFor="logoName">Nom du logo *</Label>
+                    <Input
+                      id="logoName"
+                      name="logoName"
+                      value={formData.logoName}
+                      onChange={handleInputChange}
+                      placeholder="Nom à afficher sur le logo"
+                      required
+                      disabled={isLoading}
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="style">Style souhaité *</Label>
+                    <Select value={formData.style} onValueChange={(value) => handleSelectChange(value, 'style')} disabled={isLoading}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Sélectionnez un style" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="Moderne">Moderne</SelectItem>
+                        <SelectItem value="Classique">Classique</SelectItem>
+                        <SelectItem value="Minimaliste">Minimaliste</SelectItem>
+                        <SelectItem value="Rétro">Rétro</SelectItem>
+                        <SelectItem value="Autre">Autre</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  
+                  <div className="md:col-span-2">
+                    <Label htmlFor="message">Message/image à véhiculer *</Label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder="Décrivez l'image ou le message que le logo doit transmettre"
+                      required
+                      disabled={isLoading}
+                      rows={4}
+                      className="w-full px-4 py-3 border border-border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50 resize-none"
+                    />
+                  </div>
+                  
+                  <div className="md:col-span-2">
+                    <Label>Formats de fichiers souhaités *</Label>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+                      {['PNG', 'JPG', 'SVG', 'PDF'].map((format) => (
+                        <label key={format} className="flex items-center space-x-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            name="formats"
+                            value={format}
+                            checked={formData.formats.includes(format)}
+                            onChange={handleCheckboxChange}
+                            disabled={isLoading}
+                            className="rounded border-border text-primary focus:ring-primary"
+                          />
+                          <span className="text-sm">{format}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Package Selection */}
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  {t('contact.form.package')} *
-                </label>
-                <select
-                  name="package"
-                  value={formData.package}
-                  onChange={handleInputChange}
-                  required
-                  disabled={isLoading}
-                  className="w-full px-4 py-3 border border-border focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50"
-                >
-                  <option value="">Sélectionnez un forfait</option>
-                  {packages.map((pkg) => (
-                    <option key={pkg.value} value={pkg.value}>
-                      {pkg.label} - {pkg.price}
-                    </option>
-                  ))}
-                </select>
+              {/* 3. Préférences visuelles */}
+              <div className="space-y-6">
+                <div className="flex items-center space-x-2 pb-4 border-b border-border">
+                  <Palette className="w-6 h-6 text-primary" />
+                  <h2 className="text-xl font-semibold text-primary">Préférences visuelles (optionnel)</h2>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <Label htmlFor="preferredColors">Couleurs préférées</Label>
+                    <textarea
+                      id="preferredColors"
+                      name="preferredColors"
+                      value={formData.preferredColors}
+                      onChange={handleInputChange}
+                      placeholder="#0033cc, bleu nuit, vert anis..."
+                      disabled={isLoading}
+                      rows={3}
+                      className="w-full px-4 py-3 border border-border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50 resize-none"
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="avoidedColors">Couleurs à éviter</Label>
+                    <textarea
+                      id="avoidedColors"
+                      name="avoidedColors"
+                      value={formData.avoidedColors}
+                      onChange={handleInputChange}
+                      placeholder="Rouge vif, orange..."
+                      disabled={isLoading}
+                      rows={3}
+                      className="w-full px-4 py-3 border border-border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50 resize-none"
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="typography">Typographie souhaitée</Label>
+                    <Input
+                      id="typography"
+                      name="typography"
+                      value={formData.typography}
+                      onChange={handleInputChange}
+                      placeholder="Sans Serif, Serif, Manuscrite..."
+                      disabled={isLoading}
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="icons">Éléments graphiques souhaités</Label>
+                    <Input
+                      id="icons"
+                      name="icons"
+                      value={formData.icons}
+                      onChange={handleInputChange}
+                      placeholder="Feuille, flamme, initiales..."
+                      disabled={isLoading}
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="slogan">Slogan</Label>
+                    <Input
+                      id="slogan"
+                      name="slogan"
+                      value={formData.slogan}
+                      onChange={handleInputChange}
+                      placeholder="Votre tagline"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="examplesUrl">Exemples de logos appréciés (URL)</Label>
+                    <Input
+                      id="examplesUrl"
+                      name="examplesUrl"
+                      type="url"
+                      value={formData.examplesUrl}
+                      onChange={handleInputChange}
+                      placeholder="Lien vers un logo inspirant"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  
+                  <div className="md:col-span-2">
+                    <Label>Utilisations prévues</Label>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+                      {['Site web', 'Carte de visite', 'Réseaux sociaux', 'Print'].map((usage) => (
+                        <label key={usage} className="flex items-center space-x-2 cursor-pointer">
+                          <input
+                            type="checkbox"
+                            name="usage"
+                            value={usage}
+                            checked={formData.usage.includes(usage)}
+                            onChange={handleCheckboxChange}
+                            disabled={isLoading}
+                            className="rounded border-border text-primary focus:ring-primary"
+                          />
+                          <span className="text-sm">{usage}</span>
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              {/* Message Field */}
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
-                  {t('contact.form.message')} *
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  required
-                  disabled={isLoading}
-                  rows={6}
-                  className="w-full px-4 py-3 border border-border focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50"
-                  placeholder="Décrivez votre projet, votre secteur d'activité, vos préférences..."
-                />
+              {/* 4. Sélection du forfait */}
+              <div className="space-y-6">
+                <div className="flex items-center space-x-2 pb-4 border-b border-border">
+                  <Package className="w-6 h-6 text-primary" />
+                  <h2 className="text-xl font-semibold text-primary">Sélection du forfait</h2>
+                </div>
+                
+                <div>
+                  <Label htmlFor="package">Forfait *</Label>
+                  <Select value={formData.package} onValueChange={(value) => handleSelectChange(value, 'package')} disabled={isLoading}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Choisissez un forfait" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="basic">Basique – 280€</SelectItem>
+                      <SelectItem value="advanced">Avancé – 690€</SelectItem>
+                      <SelectItem value="ultimate">Ultime – 1290€</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
 
               {/* Package Summary */}
               {selectedPackage && (
-                <div className="bg-muted p-6 border-l-4 border-primary">
+                <div className="bg-muted p-6 border-l-4 border-primary rounded-r-lg">
                   <h3 className="font-semibold text-foreground mb-2">
                     Forfait sélectionné
                   </h3>
@@ -268,7 +548,7 @@ const Contact = () => {
               )}
 
               {/* Payment Information */}
-              <div className="bg-accent/5 p-6 border border-accent/20">
+              <div className="bg-accent/5 p-6 border border-accent/20 rounded-lg">
                 <div className="flex items-center space-x-2 mb-4">
                   <CreditCard className="w-5 h-5 text-accent" />
                   <h3 className="font-semibold text-foreground">Paiement sécurisé</h3>
@@ -283,23 +563,23 @@ const Contact = () => {
               </div>
 
               {/* Submit Button */}
-              <button
+              <Button
                 type="submit"
                 disabled={isLoading}
-                className="w-full btn-primary flex items-center justify-center space-x-2 disabled:opacity-50"
+                className="w-full h-12 text-lg"
               >
                 {isLoading ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span>Création en cours...</span>
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                    Création en cours...
                   </>
                 ) : (
                   <>
-                    <Send className="w-5 h-5" />
-                    <span>{t('contact.form.submit')}</span>
+                    <Send className="w-5 h-5 mr-2" />
+                    Envoyer la commande et procéder au paiement
                   </>
                 )}
-              </button>
+              </Button>
             </form>
           </div>
         </div>
