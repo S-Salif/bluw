@@ -184,7 +184,7 @@ const handler = async (req: Request): Promise<Response> => {
     // Send email to business
     const emailResponse = await resend.emails.send({
       from: "Bluw <onboarding@resend.dev>",
-      to: ["streulens.salif@gmail.com"],
+      to: ["blue.agency@gmail.com"],
       subject: `🎨 Nouvelle commande de logo - ${order.company_name} (${formatPrice(order.amount)})`,
       html: emailHtml,
     });

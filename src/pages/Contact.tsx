@@ -206,13 +206,13 @@ const Contact = () => {
         <div className="text-center max-w-md mx-auto">
           <CheckCircle className="w-16 h-16 text-accent mx-auto mb-6" />
           <h1 className="heading-section text-primary mb-4">
-            Merci pour votre commande !
+            {t('contact.thankYou')}
           </h1>
           <p className="text-section mb-4">
-            Votre paiement a été confirmé avec succès. Nous avons envoyé un email de confirmation avec tous les détails.
+            {t('contact.paymentConfirmed')}
           </p>
           <p className="text-sm text-muted-foreground mb-8">
-            Nous vous contacterons dans les 24h pour discuter de votre projet en détail.
+            {t('contact.contactSoon')}
           </p>
           <button
             onClick={() => {
@@ -226,7 +226,7 @@ const Contact = () => {
             }}
             className="btn-primary"
           >
-            Nouvelle commande
+            {t('contact.newOrder')}
           </button>
         </div>
       </div>
@@ -258,73 +258,73 @@ const Contact = () => {
               <div className="space-y-6">
                 <div className="flex items-center space-x-2 pb-4 border-b border-border">
                   <Building className="w-6 h-6 text-primary" />
-                  <h2 className="text-xl font-semibold text-primary">Informations sur l'entreprise</h2>
+                  <h2 className="text-xl font-semibold text-primary">{t('contact.companyInfo')}</h2>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="companyName">Nom de l'entreprise *</Label>
+                    <Label htmlFor="companyName">{t('contact.form.companyName')} *</Label>
                     <Input
                       id="companyName"
                       name="companyName"
                       value={formData.companyName}
                       onChange={handleInputChange}
-                      placeholder="Ex. Agence Pixelia"
+                      placeholder={t('contact.form.companyName')}
                       required
                       disabled={isLoading}
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="sector">Secteur d'activité *</Label>
+                    <Label htmlFor="sector">{t('contact.form.sector')} *</Label>
                     <Input
                       id="sector"
                       name="sector"
                       value={formData.sector}
                       onChange={handleInputChange}
-                      placeholder="Ex. Marketing, IT, Santé..."
+                      placeholder={t('contact.form.sector')}
                       required
                       disabled={isLoading}
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="email">Email *</Label>
+                    <Label htmlFor="email">{t('contact.form.email')} *</Label>
                     <Input
                       id="email"
                       name="email"
                       type="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      placeholder="contact@exemple.com"
+                      placeholder={t('contact.form.email')}
                       required
                       disabled={isLoading}
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="phone">Téléphone *</Label>
+                    <Label htmlFor="phone">{t('contact.form.phone')} *</Label>
                     <Input
                       id="phone"
                       name="phone"
                       type="tel"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      placeholder="+33 6 12 34 56 78"
+                      placeholder={t('contact.form.phone')}
                       required
                       disabled={isLoading}
                     />
                   </div>
                   
                   <div className="md:col-span-2">
-                    <Label htmlFor="website">Site web (optionnel)</Label>
+                    <Label htmlFor="website">{t('contact.form.website')}</Label>
                     <Input
                       id="website"
                       name="website"
                       type="url"
                       value={formData.website}
                       onChange={handleInputChange}
-                      placeholder="https://monsite.com"
+                      placeholder={t('contact.form.website')}
                       disabled={isLoading}
                     />
                   </div>
@@ -335,47 +335,47 @@ const Contact = () => {
               <div className="space-y-6">
                 <div className="flex items-center space-x-2 pb-4 border-b border-border">
                   <Palette className="w-6 h-6 text-primary" />
-                  <h2 className="text-xl font-semibold text-primary">Informations sur le logo</h2>
+                  <h2 className="text-xl font-semibold text-primary">{t('contact.logoInfo')}</h2>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="logoName">Nom du logo *</Label>
+                    <Label htmlFor="logoName">{t('contact.form.logoName')} *</Label>
                     <Input
                       id="logoName"
                       name="logoName"
                       value={formData.logoName}
                       onChange={handleInputChange}
-                      placeholder="Nom à afficher sur le logo"
+                      placeholder={t('contact.form.logoName')}
                       required
                       disabled={isLoading}
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="style">Style souhaité *</Label>
+                    <Label htmlFor="style">{t('contact.form.style')} *</Label>
                     <Select value={formData.style} onValueChange={(value) => handleSelectChange(value, 'style')} disabled={isLoading}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Sélectionnez un style" />
+                        <SelectValue placeholder={t('contact.form.style')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Moderne">Moderne</SelectItem>
-                        <SelectItem value="Classique">Classique</SelectItem>
-                        <SelectItem value="Minimaliste">Minimaliste</SelectItem>
-                        <SelectItem value="Rétro">Rétro</SelectItem>
-                        <SelectItem value="Autre">Autre</SelectItem>
+                        <SelectItem value="Moderne">{t('contact.form.style') === 'Desired style' ? 'Modern' : 'Moderne'}</SelectItem>
+                        <SelectItem value="Classique">{t('contact.form.style') === 'Desired style' ? 'Classic' : 'Classique'}</SelectItem>
+                        <SelectItem value="Minimaliste">{t('contact.form.style') === 'Desired style' ? 'Minimalist' : 'Minimaliste'}</SelectItem>
+                        <SelectItem value="Rétro">{t('contact.form.style') === 'Desired style' ? 'Retro' : 'Rétro'}</SelectItem>
+                        <SelectItem value="Autre">{t('contact.form.style') === 'Desired style' ? 'Other' : 'Autre'}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                   
                   <div className="md:col-span-2">
-                    <Label htmlFor="message">Message/image à véhiculer *</Label>
+                    <Label htmlFor="message">{t('contact.form.message')} *</Label>
                     <textarea
                       id="message"
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
-                      placeholder="Décrivez l'image ou le message que le logo doit transmettre"
+                      placeholder={t('contact.form.message')}
                       required
                       disabled={isLoading}
                       rows={4}
@@ -384,7 +384,7 @@ const Contact = () => {
                   </div>
                   
                   <div className="md:col-span-2">
-                    <Label>Formats de fichiers souhaités *</Label>
+                    <Label>{t('contact.form.formats')} *</Label>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
                       {['PNG', 'JPG', 'SVG', 'PDF'].map((format) => (
                         <label key={format} className="flex items-center space-x-2 cursor-pointer">
@@ -409,18 +409,18 @@ const Contact = () => {
               <div className="space-y-6">
                 <div className="flex items-center space-x-2 pb-4 border-b border-border">
                   <Palette className="w-6 h-6 text-primary" />
-                  <h2 className="text-xl font-semibold text-primary">Préférences visuelles (optionnel)</h2>
+                  <h2 className="text-xl font-semibold text-primary">{t('contact.visualPrefs')}</h2>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="preferredColors">Couleurs préférées</Label>
+                    <Label htmlFor="preferredColors">{t('contact.form.preferredColors')}</Label>
                     <textarea
                       id="preferredColors"
                       name="preferredColors"
                       value={formData.preferredColors}
                       onChange={handleInputChange}
-                      placeholder="#0033cc, bleu nuit, vert anis..."
+                      placeholder={t('contact.form.preferredColors')}
                       disabled={isLoading}
                       rows={3}
                       className="w-full px-4 py-3 border border-border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50 resize-none"
@@ -428,13 +428,13 @@ const Contact = () => {
                   </div>
                   
                   <div>
-                    <Label htmlFor="avoidedColors">Couleurs à éviter</Label>
+                    <Label htmlFor="avoidedColors">{t('contact.form.avoidedColors')}</Label>
                     <textarea
                       id="avoidedColors"
                       name="avoidedColors"
                       value={formData.avoidedColors}
                       onChange={handleInputChange}
-                      placeholder="Rouge vif, orange..."
+                      placeholder={t('contact.form.avoidedColors')}
                       disabled={isLoading}
                       rows={3}
                       className="w-full px-4 py-3 border border-border rounded-md focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300 disabled:opacity-50 resize-none"
@@ -442,69 +442,74 @@ const Contact = () => {
                   </div>
                   
                   <div>
-                    <Label htmlFor="typography">Typographie souhaitée</Label>
+                    <Label htmlFor="typography">{t('contact.form.typography')}</Label>
                     <Input
                       id="typography"
                       name="typography"
                       value={formData.typography}
                       onChange={handleInputChange}
-                      placeholder="Sans Serif, Serif, Manuscrite..."
+                      placeholder={t('contact.form.typography')}
                       disabled={isLoading}
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="icons">Éléments graphiques souhaités</Label>
+                    <Label htmlFor="icons">{t('contact.form.icons')}</Label>
                     <Input
                       id="icons"
                       name="icons"
                       value={formData.icons}
                       onChange={handleInputChange}
-                      placeholder="Feuille, flamme, initiales..."
+                      placeholder={t('contact.form.icons')}
                       disabled={isLoading}
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="slogan">Slogan</Label>
+                    <Label htmlFor="slogan">{t('contact.form.slogan')}</Label>
                     <Input
                       id="slogan"
                       name="slogan"
                       value={formData.slogan}
                       onChange={handleInputChange}
-                      placeholder="Votre tagline"
+                      placeholder={t('contact.form.slogan')}
                       disabled={isLoading}
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="examplesUrl">Exemples de logos appréciés (URL)</Label>
+                    <Label htmlFor="examplesUrl">{t('contact.form.examplesUrl')}</Label>
                     <Input
                       id="examplesUrl"
                       name="examplesUrl"
                       type="url"
                       value={formData.examplesUrl}
                       onChange={handleInputChange}
-                      placeholder="Lien vers un logo inspirant"
+                      placeholder={t('contact.form.examplesUrl')}
                       disabled={isLoading}
                     />
                   </div>
                   
                   <div className="md:col-span-2">
-                    <Label>Utilisations prévues</Label>
+                    <Label>{t('contact.form.usage')}</Label>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
-                      {['Site web', 'Carte de visite', 'Réseaux sociaux', 'Print'].map((usage) => (
-                        <label key={usage} className="flex items-center space-x-2 cursor-pointer">
+                      {[
+                        { key: 'Site web', en: 'Website' },
+                        { key: 'Carte de visite', en: 'Business card' },
+                        { key: 'Réseaux sociaux', en: 'Social media' },
+                        { key: 'Print', en: 'Print' }
+                      ].map((usage) => (
+                        <label key={usage.key} className="flex items-center space-x-2 cursor-pointer">
                           <input
                             type="checkbox"
                             name="usage"
-                            value={usage}
-                            checked={formData.usage.includes(usage)}
+                            value={usage.key}
+                            checked={formData.usage.includes(usage.key)}
                             onChange={handleCheckboxChange}
                             disabled={isLoading}
                             className="rounded border-border text-primary focus:ring-primary"
                           />
-                          <span className="text-sm">{usage}</span>
+                          <span className="text-sm">{t('contact.form.usage') === 'Intended usage' ? usage.en : usage.key}</span>
                         </label>
                       ))}
                     </div>
@@ -516,19 +521,19 @@ const Contact = () => {
               <div className="space-y-6">
                 <div className="flex items-center space-x-2 pb-4 border-b border-border">
                   <Package className="w-6 h-6 text-primary" />
-                  <h2 className="text-xl font-semibold text-primary">Sélection du forfait</h2>
+                  <h2 className="text-xl font-semibold text-primary">{t('contact.packageSelection')}</h2>
                 </div>
                 
                 <div>
-                  <Label htmlFor="package">Forfait *</Label>
+                  <Label htmlFor="package">{t('contact.form.package')} *</Label>
                   <Select value={formData.package} onValueChange={(value) => handleSelectChange(value, 'package')} disabled={isLoading}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Choisissez un forfait" />
+                      <SelectValue placeholder={t('contact.form.package')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="basic">Basique – 280€</SelectItem>
-                      <SelectItem value="advanced">Avancé – 690€</SelectItem>
-                      <SelectItem value="ultimate">Ultime – 1290€</SelectItem>
+                      <SelectItem value="basic">{t('pricing.basic.name')} – {t('pricing.basic.price')}</SelectItem>
+                      <SelectItem value="advanced">{t('pricing.advanced.name')} – {t('pricing.advanced.price')}</SelectItem>
+                      <SelectItem value="ultimate">{t('pricing.ultimate.name')} – {t('pricing.ultimate.price')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -538,7 +543,7 @@ const Contact = () => {
               {selectedPackage && (
                 <div className="bg-muted p-6 border-l-4 border-primary rounded-r-lg">
                   <h3 className="font-semibold text-foreground mb-2">
-                    Forfait sélectionné
+                    {t('contact.packageSelected')}
                   </h3>
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">{selectedPackage.label}</span>
@@ -551,14 +556,14 @@ const Contact = () => {
               <div className="bg-accent/5 p-6 border border-accent/20 rounded-lg">
                 <div className="flex items-center space-x-2 mb-4">
                   <CreditCard className="w-5 h-5 text-accent" />
-                  <h3 className="font-semibold text-foreground">Paiement sécurisé</h3>
+                  <h3 className="font-semibold text-foreground">{t('contact.paymentSecure')}</h3>
                 </div>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Après validation de votre commande, vous serez redirigé vers Stripe pour effectuer le paiement de manière sécurisée.
+                  {t('contact.paymentInfo')}
                 </p>
                 <div className="flex items-center space-x-2 text-xs text-muted-foreground">
                   <AlertCircle className="w-4 h-4" />
-                  <span>Vous recevrez un email de confirmation après votre commande</span>
+                  <span>{t('contact.confirmationEmail')}</span>
                 </div>
               </div>
 
@@ -571,12 +576,12 @@ const Contact = () => {
                 {isLoading ? (
                   <>
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                    Création en cours...
+                    {t('contact.creating')}
                   </>
                 ) : (
                   <>
                     <Send className="w-5 h-5 mr-2" />
-                    Envoyer la commande et procéder au paiement
+                    {t('contact.form.submit')}
                   </>
                 )}
               </Button>
