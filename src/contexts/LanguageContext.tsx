@@ -147,6 +147,19 @@ const translations = {
     'terms.governing.title': 'Loi applicable',
     'terms.governing.content': 'Les présentes conditions sont régies par le droit belge.\nEn cas de litige, et à défaut de résolution amiable, compétence exclusive est attribuée aux tribunaux francophones de Bruxelles.',
     
+    // Privacy Policy page
+    'privacy.title': 'Politique de confidentialité',
+    'privacy.dataCollection.title': 'Collecte des données',
+    'privacy.dataCollection.content': 'Bluw collecte uniquement les données personnelles nécessaires au traitement de votre commande :\n\n• Informations de contact (nom, email, téléphone)\n• Informations sur votre entreprise (nom, secteur d\'activité, site web)\n• Informations sur votre projet (nom du logo, style souhaité, message à véhiculer)\n• Préférences visuelles (couleurs, typographie, éléments graphiques)\n\nCes données sont collectées via le formulaire de commande présent sur notre site web.',
+    'privacy.dataUsage.title': 'Utilisation des données',
+    'privacy.dataUsage.content': 'Vos données personnelles sont utilisées exclusivement pour :\n\n• Traiter et suivre votre commande\n• Vous contacter concernant votre projet\n• Facturation et gestion comptable\n• Améliorer nos services\n\nNous ne vendons, ne louons, ni ne partageons vos données avec des tiers à des fins commerciales.',
+    'privacy.dataSharing.title': 'Partage des données',
+    'privacy.dataSharing.content': 'Vos données peuvent être partagées uniquement avec :\n\n• **Stripe** : pour le traitement sécurisé des paiements\n• **Supabase** : pour le stockage sécurisé des données de commande\n• **Resend** : pour l\'envoi d\'emails de confirmation\n\nCes prestataires respectent des standards de sécurité élevés et ne traitent vos données que dans le cadre des services fournis.',
+    'privacy.userRights.title': 'Vos droits',
+    'privacy.userRights.content': 'Conformément au RGPD, vous disposez des droits suivants :\n\n• **Droit d\'accès** : obtenir une copie de vos données personnelles\n• **Droit de rectification** : corriger des données inexactes\n• **Droit à l\'effacement** : demander la suppression de vos données\n• **Droit à la portabilité** : recevoir vos données dans un format structuré\n• **Droit d\'opposition** : vous opposer au traitement de vos données\n\nPour exercer ces droits, contactez-nous à streulens.salif@gmail.com.',
+    'privacy.contact.title': 'Contact',
+    'privacy.contact.content': 'Pour toute question concernant cette politique de confidentialité ou le traitement de vos données personnelles, vous pouvez nous contacter :\n\n**Email** : streulens.salif@gmail.com\n**Responsable** : Salif Streulens\n**Entreprise** : Bluw\n\nCette politique de confidentialité peut être mise à jour. Nous vous recommandons de la consulter régulièrement.',
+
     // Common
     'common.loading': 'Chargement...',
     'common.error': 'Une erreur est survenue',
@@ -285,6 +298,19 @@ const translations = {
     'terms.governing.title': 'Governing Law',
     'terms.governing.content': 'These terms are governed by Belgian law.\nIn case of dispute, and in the absence of an amicable resolution, exclusive jurisdiction is granted to the French-speaking courts of Brussels.',
     
+    // Privacy Policy page
+    'privacy.title': 'Privacy Policy',
+    'privacy.dataCollection.title': 'Data Collection',
+    'privacy.dataCollection.content': 'Bluw only collects personal data necessary for processing your order:\n\n• Contact information (name, email, phone)\n• Company information (name, business sector, website)\n• Project information (logo name, desired style, message to convey)\n• Visual preferences (colors, typography, graphic elements)\n\nThis data is collected through the order form on our website.',
+    'privacy.dataUsage.title': 'Data Usage',
+    'privacy.dataUsage.content': 'Your personal data is used exclusively to:\n\n• Process and track your order\n• Contact you regarding your project\n• Billing and accounting management\n• Improve our services\n\nWe do not sell, rent, or share your data with third parties for commercial purposes.',
+    'privacy.dataSharing.title': 'Data Sharing',
+    'privacy.dataSharing.content': 'Your data may only be shared with:\n\n• **Stripe**: for secure payment processing\n• **Supabase**: for secure order data storage\n• **Resend**: for sending confirmation emails\n\nThese providers adhere to high security standards and only process your data as part of the services provided.',
+    'privacy.userRights.title': 'Your Rights',
+    'privacy.userRights.content': 'Under GDPR, you have the following rights:\n\n• **Right of access**: obtain a copy of your personal data\n• **Right of rectification**: correct inaccurate data\n• **Right to erasure**: request deletion of your data\n• **Right to portability**: receive your data in a structured format\n• **Right to object**: object to the processing of your data\n\nTo exercise these rights, contact us at streulens.salif@gmail.com.',
+    'privacy.contact.title': 'Contact',
+    'privacy.contact.content': 'For any questions regarding this privacy policy or the processing of your personal data, you can contact us:\n\n**Email**: streulens.salif@gmail.com\n**Responsible**: Salif Streulens\n**Company**: Bluw\n\nThis privacy policy may be updated. We recommend checking it regularly.',
+
     // Common
     'common.loading': 'Loading...',
     'common.error': 'An error occurred',

@@ -13,6 +13,7 @@ import Contact from "@/pages/Contact";
 import Reviews from "@/pages/Reviews";
 import LegalNotice from "@/pages/LegalNotice";
 import Terms from "@/pages/Terms";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import NotFound from "@/pages/NotFound";
 import { useState } from "react";
 
@@ -45,6 +46,8 @@ const App = () => {
                 <Route path="/legal-notice" element={<LegalNotice />} />
                 <Route path="/conditions" element={<Terms />} />
                 <Route path="/terms" element={<Terms />} />
+                <Route path="/politique-de-confidentialite" element={<PrivacyPolicy />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
