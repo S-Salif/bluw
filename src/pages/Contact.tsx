@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Send, CreditCard, CheckCircle, AlertCircle, Upload, Building, Palette, Package, Calendar } from 'lucide-react';
+import { Send, CreditCard, CheckCircle, AlertCircle, Upload, Building, Palette, Package } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -9,9 +9,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { Calendar as CalendarComponent } from '@/components/ui/calendar';
-import { format, addDays } from 'date-fns';
 import { cn } from '@/lib/utils';
 
 const Contact = () => {
@@ -43,9 +40,8 @@ const Contact = () => {
     examplesUrl: '',
     usage: [] as string[],
     
-    // Package and deadline
+    // Package
     package: searchParams.get('plan') || '',
-    deadline: null as Date | null,
     
     // RGPD consent
     rgpdConsent: false,
@@ -167,23 +163,6 @@ const Contact = () => {
       return false;
     }
 
-    // Validate deadline for advanced and ultimate packages
-    if ((formData.package === 'advanced' || formData.package === 'ultimate') && formData.deadline) {
-      const today = new Date();
-      const minDays = formData.package === 'advanced' ? 6 : 8;
-      const minDate = addDays(today, minDays);
-      
-      if (formData.deadline < minDate) {
-        toast({
-          title: t('common.error'),
-          description: formData.package === 'advanced' 
-            ? t('contact.error.deadlineAdvanced')
-            : t('contact.error.deadlineUltimate'),
-          variant: "destructive",
-        });
-        return false;
-      }
-    }
 
     // Validate RGPD consent
     if (!formData.rgpdConsent) {
@@ -264,7 +243,7 @@ const Contact = () => {
                 logoName: '', style: '', message: '', formats: [],
                 preferredColors: '', avoidedColors: '', typography: '', icons: '',
                 slogan: '', examplesUrl: '', usage: [], package: '', 
-                deadline: null, rgpdConsent: false
+                rgpdConsent: false
               });
             }}
             className="btn-primary"
@@ -582,57 +561,6 @@ const Contact = () => {
                 </div>
               </div>
 
-              {/* Deadline field - only for advanced and ultimate packages */}
-              {(formData.package === 'advanced' || formData.package === 'ultimate') && (
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-2 pb-4 border-b border-border">
-                    <Calendar className="w-6 h-6 text-primary" />
-                    <h2 className="text-xl font-semibold text-primary">{t('contact.form.deadline')}</h2>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="deadline">{t('contact.form.deadline')}</Label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !formData.deadline && "text-muted-foreground"
-                          )}
-                        >
-                          <Calendar className="mr-2 h-4 w-4" />
-                          {formData.deadline ? (
-                            format(formData.deadline, "PPP")
-                          ) : (
-                            <span>{t('contact.form.deadlineHelp')}</span>
-                          )}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <CalendarComponent
-                          mode="single"
-                          selected={formData.deadline || undefined}
-                          onSelect={(date) => setFormData(prev => ({ ...prev, deadline: date || null }))}
-                          disabled={(date) => {
-                            const today = new Date();
-                            const minDays = formData.package === 'advanced' ? 6 : 8;
-                            return date < addDays(today, minDays);
-                          }}
-                          initialFocus
-                          className="p-3 pointer-events-auto"
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    <p className="text-sm text-muted-foreground">
-                      {formData.package === 'advanced' 
-                        ? t('contact.error.deadlineAdvanced')
-                        : t('contact.error.deadlineUltimate')
-                      }
-                    </p>
-                  </div>
-                </div>
-              )}
 
               {/* RGPD Consent */}
               <div className="space-y-4 pt-6 border-t border-border">

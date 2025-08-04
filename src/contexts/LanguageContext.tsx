@@ -104,11 +104,9 @@ const translations = {
     'contact.paymentConfirmed': 'Votre paiement a été confirmé avec succès. Nous avons envoyé un email de confirmation avec tous les détails.',
     'contact.contactSoon': 'Nous vous contacterons dans les 24h pour discuter de votre projet en détail.',
     'contact.newOrder': 'Nouvelle commande',
-    'contact.form.deadline': 'Échéance souhaitée',
+    
     'contact.form.deadlineHelp': 'Date limite souhaitée pour la livraison',
     'contact.form.rgpd': 'J\'accepte que mes données soient utilisées pour traiter ma commande selon la [politique de confidentialité](/politique-de-confidentialite).',
-    'contact.error.deadlineAdvanced': 'La date doit être au moins 6 jours après aujourd\'hui pour le forfait Avancé.',
-    'contact.error.deadlineUltimate': 'La date doit être au moins 8 jours après aujourd\'hui pour le forfait Ultime.',
     'contact.error.rgpdRequired': 'Vous devez accepter la politique de confidentialité pour continuer.',
     
     // Reviews page
@@ -246,11 +244,7 @@ const translations = {
     'contact.paymentConfirmed': 'Your payment has been successfully confirmed. We have sent a confirmation email with all the details.',
     'contact.contactSoon': 'We will contact you within 24h to discuss your project in detail.',
     'contact.newOrder': 'New order',
-    'contact.form.deadline': 'Desired deadline',
-    'contact.form.deadlineHelp': 'Desired delivery deadline',
     'contact.form.rgpd': 'I agree that my data may be used to process my order according to the [privacy policy](/privacy-policy).',
-    'contact.error.deadlineAdvanced': 'The selected date must be at least 6 days from today for the Advanced plan.',
-    'contact.error.deadlineUltimate': 'The selected date must be at least 8 days from today for the Ultimate plan.',
     'contact.error.rgpdRequired': 'You must accept the privacy policy to continue.',
     
     // Reviews page
