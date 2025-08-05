@@ -22,7 +22,7 @@ const About = () => {
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="animate-fade-up">
-                <p className="text-section text-lg leading-relaxed text-justify">
+                <p className="text-section text-lg leading-relaxed text-left">
                   {t('about.content')}
                 </p>
               </div>
