@@ -79,13 +79,13 @@ const Home = () => {
       <section className="section-padding bg-primary text-primary-foreground">
         <div className="container-bluw text-center">
           <h2 className="heading-section mb-6">
-            Prêt à créer votre identité visuelle ?
+            {t('home.cta.title')}
           </h2>
           <p className="text-hero mb-8 opacity-90">
-            Découvrez nos forfaits et commencez votre projet dès aujourd'hui
+            {t('home.cta.subtitle')}
           </p>
           <Link to="/services" className="btn-accent inline-flex items-center space-x-2">
-            <span>Découvrir nos services</span>
+            <span>{t('home.cta.button')}</span>
             <ArrowRight className="w-5 h-5" />
           </Link>
         </div>

@@ -33,6 +33,11 @@ const translations = {
     'home.values.professionalism.title': 'Sérieux',
     'home.values.professionalism.desc': 'Respect des délais et qualité garantie',
     
+    // CTA section
+    'home.cta.title': 'Prêt à créer votre identité visuelle ?',
+    'home.cta.subtitle': 'Découvrez nos forfaits et commencez votre projet dès aujourd\'hui',
+    'home.cta.button': 'Découvrir nos services',
+    
     // About page
     'about.title': 'À propos de Bluw',
     'about.content': 'Bluw est une agence de branding spécialisée dans la création d\'identités visuelles haut de gamme. Fondée par un étudiant passionné de design, notre mission est d\'accompagner les marques ambitieuses dans leur développement visuel. Nous nous positionnons sur le segment du design de luxe, en offrant des solutions créatives et professionnelles adaptées aux entreprises, startups, consultants et freelances qui souhaitent se démarquer par une identité forte et mémorable.',
@@ -185,6 +190,11 @@ const translations = {
     'home.values.clarity.desc': 'Simple and impactful visual messages',
     'home.values.professionalism.title': 'Professionalism',
     'home.values.professionalism.desc': 'Deadline respect and guaranteed quality',
+    
+    // CTA section
+    'home.cta.title': 'Ready to create your visual identity?',
+    'home.cta.subtitle': 'Discover our packages and start your project today',
+    'home.cta.button': 'Discover our services',
     
     // About page
     'about.title': 'About Bluw',
