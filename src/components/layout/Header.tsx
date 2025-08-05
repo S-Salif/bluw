@@ -27,12 +27,8 @@ const Header = () => {
       <div className="container-bluw">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center transition-opacity duration-300 hover:opacity-80">
-            <img 
-              src="/lovable-uploads/7787c4fe-ce46-4855-a3ad-aa54dde16ea9.png" 
-              alt="Bluw" 
-              className="h-8 w-auto"
-            />
+          <Link to="/" className="text-2xl font-bold text-primary transition-colors duration-300 hover:text-primary/80">
+            Bluw
           </Link>
 
           {/* Desktop Navigation */}
