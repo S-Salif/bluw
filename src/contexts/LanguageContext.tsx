@@ -128,7 +128,7 @@ const translations = {
     // Legal Notice page
     'legal.title': 'Mentions légales',
     'legal.legalInfo.title': 'Informations légales',
-    'legal.legalInfo.content': 'Le présent site web, accessible à l\'adresse www.bluw.blue, est édité par **Bluw**, une entreprise individuelle en cours de création par Salif Streulens.\n\nResponsable de la publication : Salif Streulens\nContact : streulens.salif@gmail.com\nHébergeur : Lovable (Hyper, Inc. — 2261 Market Street #4858, San Francisco, CA 94114, United States)\nContact hébergeur : support@lovable.so',
+    'legal.legalInfo.content': 'Le présent site web, accessible à l\'adresse www.bluw.blue, est édité par **Bluw**, une entreprise individuelle en cours de création par Salif Streulens.\n\nResponsable de la publication : Salif Streulens\nContact : Bluw.agency@gmail.com\nHébergeur : Netlify\nContact hébergeur : team@netlify.com',
     'legal.liability.title': 'Responsabilité',
     'legal.liability.content': 'Bluw met à disposition un site internet professionnel destiné à présenter et vendre des prestations de création de logos.\nBien que nous veillions à fournir des informations fiables et à jour, la responsabilité de l\'éditeur ne saurait être engagée en cas d\'erreur, d\'omission ou de mauvais usage des contenus présents sur le site.\n\nL\'utilisateur est seul responsable de l\'utilisation qu\'il fait du site et des services proposés. En aucun cas Bluw ne pourra être tenu responsable des dommages directs ou indirects résultant de l\'accès ou de l\'utilisation du site.',
     'legal.intellectual.title': 'Propriété intellectuelle',
@@ -279,7 +279,7 @@ const translations = {
     // Legal Notice page
     'legal.title': 'Legal Notice',
     'legal.legalInfo.title': 'Legal Information',
-    'legal.legalInfo.content': 'This website, accessible at www.bluw.blue, is published by **Bluw**, a sole proprietorship being created by Salif Streulens.\n\nPublication Director: Salif Streulens\nContact: streulens.salif@gmail.com\nHosting: Lovable (Hyper, Inc. — 2261 Market Street #4858, San Francisco, CA 94114, United States)\nHosting contact: support@lovable.so',
+    'legal.legalInfo.content': 'This website, accessible at www.bluw.blue, is published by **Bluw**, a sole proprietorship being created by Salif Streulens.\n\nPublication Director: Salif Streulens\nContact: Bluw.agency@gmail.com\nHosting: Netlify\nHosting contact: team@netlify.com',
     'legal.liability.title': 'Liability',
     'legal.liability.content': 'Bluw provides a website for the sale of professional logo design services.\nAlthough we strive to ensure reliable and up-to-date information, the publisher cannot be held liable for errors, omissions, or misuse of the content provided on the site.\n\nUsers are solely responsible for how they use the site and the services offered. Bluw cannot be held liable for any direct or indirect damage resulting from access to or use of the site.',
     'legal.intellectual.title': 'Intellectual Property',
