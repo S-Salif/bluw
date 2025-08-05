@@ -21,7 +21,7 @@ const Reviews = () => {
       company: "Tech Startup",
       rating: 5,
       comment: "Excellent travail sur notre logo ! L'équipe a parfaitement compris notre vision et a livré un résultat au-delà de nos attentes.",
-      date: "2024-01-15"
+      date: "2025-07-15"
     },
     {
       id: 2,
@@ -29,7 +29,7 @@ const Reviews = () => {
       company: "Consultant Indépendant",
       rating: 5,
       comment: "Service professionnel et créatif. Mon nouveau logo reflète parfaitement mon activité de consulting.",
-      date: "2024-01-10"
+      date: "2025-06-20"
     },
     {
       id: 3,
@@ -37,7 +37,7 @@ const Reviews = () => {
       company: "E-commerce",
       rating: 4,
       comment: "Très satisfaite du résultat. Communication fluide et respect des délais.",
-      date: "2024-01-05"
+      date: "2025-05-10"
     }
   ];
 
