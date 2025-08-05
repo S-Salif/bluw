@@ -1,11 +1,10 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-
 const About = () => {
-  const { t } = useLanguage();
-
-  return (
-    <div>
+  const {
+    t
+  } = useLanguage();
+  return <div>
       {/* Hero Section */}
       <section className="section-padding bg-gradient-subtle">
         <div className="container-bluw">
@@ -23,13 +22,15 @@ const About = () => {
           <div className="max-w-4xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="animate-fade-up">
-                <p className="text-section text-lg leading-relaxed">
+                <p className="text-section text-lg leading-relaxed text-justify">
                   {t('about.content')}
                 </p>
               </div>
               
               {/* Placeholder for image */}
-              <div className="animate-fade-up" style={{ animationDelay: '0.2s' }}>
+              <div className="animate-fade-up" style={{
+              animationDelay: '0.2s'
+            }}>
                 <div className="bg-muted h-80 flex items-center justify-center">
                   <div className="text-center">
                     <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -57,8 +58,6 @@ const About = () => {
           </div>
         </div>
       </section>
-    </div>
-  );
+    </div>;
 };
-
 export default About;
