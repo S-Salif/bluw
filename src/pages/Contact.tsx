@@ -1,8 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Send, CreditCard, CheckCircle, AlertCircle, Upload, Building, Palette, Package } from 'lucide-react';
+import { useSearchParams, Link } from 'react-router-dom';
+import { Send, CreditCard, CheckCircle, AlertCircle, Upload, Building, Palette, Package, Lock } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Input } from '@/components/ui/input';
@@ -13,6 +14,7 @@ import { cn } from '@/lib/utils';
 
 const Contact = () => {
   const { t } = useLanguage();
+  const { user, loading: authLoading } = useAuth();
   const { toast } = useToast();
   const [searchParams, setSearchParams] = useSearchParams();
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -46,6 +48,13 @@ const Contact = () => {
     // RGPD consent
     rgpdConsent: false,
   });
+
+  // Update email when user is loaded
+  useEffect(() => {
+    if (user?.email && !formData.email) {
+      setFormData(prev => ({ ...prev, email: user.email }));
+    }
+  }, [user?.email, formData.email]);
   
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -250,6 +259,37 @@ const Contact = () => {
           >
             {t('contact.newOrder')}
           </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Check if user is authenticated
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center section-padding">
+        <div className="text-center max-w-md mx-auto">
+          <Lock className="w-16 h-16 text-muted-foreground mx-auto mb-6" />
+          <h1 className="heading-section text-primary mb-4">
+            Connexion requise
+          </h1>
+          <p className="text-section mb-8">
+            Vous devez être connecté pour commander vos designs. 
+            Créez un compte ou connectez-vous pour continuer.
+          </p>
+          <Link to="/auth">
+            <Button className="btn-primary">
+              Se connecter / S'inscrire
+            </Button>
+          </Link>
         </div>
       </div>
     );

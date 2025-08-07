@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X, Globe, User, LogOut } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const { language, setLanguage, t } = useLanguage();
+  const { user, signOut, loading } = useAuth();
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -46,7 +55,7 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Language Toggle & Mobile Menu */}
+          {/* Right side controls */}
           <div className="flex items-center space-x-4">
             {/* Language Toggle */}
             <button
@@ -57,6 +66,34 @@ const Header = () => {
               <Globe className="w-4 h-4" />
               <span className="uppercase">{language}</span>
             </button>
+
+            {/* Auth Section */}
+            {!loading && (
+              <>
+                {user ? (
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" size="sm" className="hidden md:flex items-center space-x-2">
+                        <User className="w-4 h-4" />
+                        <span>Mon compte</span>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      <DropdownMenuItem onClick={signOut} className="text-red-600">
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Se déconnecter
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                ) : (
+                  <Link to="/auth">
+                    <Button variant="ghost" size="sm" className="hidden md:flex">
+                      Se connecter
+                    </Button>
+                  </Link>
+                )}
+              </>
+            )}
 
             {/* Mobile Menu Toggle */}
             <button
@@ -85,6 +122,33 @@ const Header = () => {
                   {item.label}
                 </Link>
               ))}
+              
+              {/* Mobile Auth */}
+              <div className="pt-4 border-t border-border">
+                {!loading && (
+                  <>
+                    {user ? (
+                      <button
+                        onClick={() => {
+                          signOut();
+                          setIsMenuOpen(false);
+                        }}
+                        className="text-lg font-medium text-red-600 hover:text-red-700 transition-colors duration-300"
+                      >
+                        Se déconnecter
+                      </button>
+                    ) : (
+                      <Link
+                        to="/auth"
+                        onClick={() => setIsMenuOpen(false)}
+                        className="text-lg font-medium text-foreground hover:text-primary transition-colors duration-300"
+                      >
+                        Se connecter
+                      </Link>
+                    )}
+                  </>
+                )}
+              </div>
             </nav>
           </div>
         )}
