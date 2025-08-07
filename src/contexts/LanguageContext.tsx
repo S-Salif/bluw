@@ -113,6 +113,9 @@ const translations = {
     'contact.form.deadlineHelp': 'Date limite souhaitée pour la livraison',
     'contact.form.rgpd': 'J\'accepte que mes données soient utilisées pour traiter ma commande selon la [politique de confidentialité](/politique-de-confidentialite).',
     'contact.error.rgpdRequired': 'Vous devez accepter la politique de confidentialité pour continuer.',
+    'contact.loginRequired': 'Connexion requise',
+    'contact.loginMessage': 'Vous devez être connecté pour commander vos designs. Créez un compte ou connectez-vous pour continuer.',
+    'contact.loginButton': 'Se connecter / S\'inscrire',
     
     // Reviews page
     'reviews.title': 'Avis Clients',
@@ -269,6 +272,9 @@ const translations = {
     'contact.newOrder': 'New order',
     'contact.form.rgpd': 'I agree that my data may be used to process my order according to the [privacy policy](/privacy-policy).',
     'contact.error.rgpdRequired': 'You must accept the privacy policy to continue.',
+    'contact.loginRequired': 'Login Required',
+    'contact.loginMessage': 'You must be logged in to order your designs. Create an account or log in to continue.',
+    'contact.loginButton': 'Login / Sign up',
     
     // Reviews page
     'reviews.title': 'Client Reviews',

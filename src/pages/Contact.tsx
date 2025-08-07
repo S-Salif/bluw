@@ -279,15 +279,14 @@ const Contact = () => {
         <div className="text-center max-w-md mx-auto">
           <Lock className="w-16 h-16 text-muted-foreground mx-auto mb-6" />
           <h1 className="heading-section text-primary mb-4">
-            Connexion requise
+            {t('contact.loginRequired')}
           </h1>
           <p className="text-section mb-8">
-            Vous devez être connecté pour commander vos designs. 
-            Créez un compte ou connectez-vous pour continuer.
+            {t('contact.loginMessage')}
           </p>
           <Link to="/auth">
             <Button className="btn-primary">
-              Se connecter / S'inscrire
+              {t('contact.loginButton')}
             </Button>
           </Link>
         </div>
